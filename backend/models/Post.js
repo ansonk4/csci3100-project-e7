@@ -27,7 +27,7 @@ const postSchema = mongoose.Schema(
       default: [],
     },
     retweeted: Boolean,
-    // original tweet create
+    // original tweet creator info for retweet
     creatorId: String,
     creatorFirstName: String,
     creatorLastName: String,
