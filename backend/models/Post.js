@@ -26,6 +26,12 @@ const postSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    retweeted: Boolean,
+    // original tweet create
+    creatorId: String,
+    creatorFirstName: String,
+    creatorLastName: String,
+    creatorPicturePath: String
   },
   { timestamps: true }
 );

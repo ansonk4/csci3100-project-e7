@@ -2,7 +2,7 @@ import Post from "../models/Post.js";
 import User from "../models/User.js";
 
 /* CREATE */
-export const createPost = async (req, res) => {
+export const createTweet = async (req, res) => {
   try {
     const { userId, description, picturePath } = req.body;
     const user = await User.findById(userId);
@@ -16,6 +16,41 @@ export const createPost = async (req, res) => {
       picturePath,
       likes: {},
       comments: [],
+      retweeted: false
+    });
+    await newPost.save();
+
+    const post = await Post.find();
+    res.status(201).json(post);
+  } catch (err) {
+    res.status(409).json({ message: err.message });
+  }
+};
+
+export const retweet = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req.body;
+    
+    const tweet = await Post.findById(id);
+    const creator = await User.findById(tweet.userId) 
+    const user = await User.findById(userId);
+
+    const newPost = new Post({
+      userId,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      location: user.location,
+      description: tweet.description,
+      userPicturePath: user.picturePath,
+      picturePath: tweet.picturePath,
+      likes: [],
+      comments: [],
+      retweeted: true,
+      creatorId: creator._id,
+      creatorFirstName: creator.firstName,
+      creatorLastName: creator.lastName,
+      creatorPicturePath:creator.picturePath 
     });
     await newPost.save();
 

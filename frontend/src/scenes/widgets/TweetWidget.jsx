@@ -45,7 +45,13 @@ const TweetWidget = ({
   };
 
   const retweet = async () => {
-
+    const response = await fetch(`http://localhost:3001/posts/${postId}/retweet`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: loggedInUserId})
+    });
+    const updatedPost = await response.json();
+    dispatch(setPost({ post: updatedPost }));
   };
 
   const handleNewComment = async () => {
