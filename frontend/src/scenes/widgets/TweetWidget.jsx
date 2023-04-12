@@ -5,7 +5,7 @@ import {
   Autorenew,
 	Send
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, InputBase, Typography, useTheme } from "@mui/material";
+import { Box, Divider, Stack, IconButton, InputBase, Typography, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -22,6 +22,10 @@ const TweetWidget = ({
   userPicturePath,
   likes,
   comments,
+  retweeted,
+  creatorId,
+  creatorName,
+  creatorPicturePath
 }) => {
   const [isComments, setIsComments] = useState(false);
   const [comment, setComment] = useState("");
@@ -32,6 +36,7 @@ const TweetWidget = ({
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
+  const mediumMain = palette.neutral.mediumMain;
   const primary = palette.primary.main;
 
   const patchLike = async () => {
@@ -67,14 +72,39 @@ const TweetWidget = ({
 
   return (
     <WidgetWrapper m="2rem 0">
-      <Friend
+
+      {/* User info for normal tweet */}
+      { !retweeted && (< Friend
         friendId={postUserId}
         name={name}
         picturePath={userPicturePath}
       />
+      )}
+
+      {/* Creator info for retweet */}
+      { retweeted && (
+        <Box>
+          <Stack direction="row" alignItems="center" gap={1}>
+            <Autorenew sx = {{color:mediumMain}} />
+            <Typography color={mediumMain}>
+              {name} Retweeted 
+            </Typography>
+          </Stack>
+          <Divider sx={{my: '0.5rem'}} />
+          <Friend
+            friendId={creatorId}
+            name={creatorName}
+            picturePath={creatorPicturePath}
+          />
+        </Box>
+      )}
+
+      {/* text of tweet */}
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
+
+      {/* picture of tweet */}
       {picturePath && (
         <img
           width="100%"
@@ -84,6 +114,7 @@ const TweetWidget = ({
           src={`http://localhost:3001/assets/${picturePath}`}
         />
       )}
+
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           {/* Like button */}
@@ -107,7 +138,7 @@ const TweetWidget = ({
           </FlexBetween>
         </FlexBetween>
 
-        {/* retweet */}
+        {/* retweet button*/}
         <IconButton>
           <Autorenew onClick={retweet}/>
         </IconButton>

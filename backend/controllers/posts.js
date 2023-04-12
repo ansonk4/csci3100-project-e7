@@ -51,10 +51,10 @@ export const retweet = async (req, res) => {
       likes: [],
       comments: [],
       retweeted: true,
-      creatorId: creator._id,
-      creatorFirstName: creator.firstName,
-      creatorLastName: creator.lastName,
-      creatorPicturePath:creator.picturePath 
+      creatorId: (tweet.retweeted) ? tweet.creatorId: creator._id,
+      creatorFirstName: (tweet.retweeted) ? tweet.creatorFirstName: creator.firstName,
+      creatorLastName: (tweet.retweeted) ? tweet.creatorLastName: creator.lastName,
+      creatorPicturePath: (tweet.retweeted) ? tweet.creatorPicturePath: creator.picturePath 
     });
     await newPost.save();
 

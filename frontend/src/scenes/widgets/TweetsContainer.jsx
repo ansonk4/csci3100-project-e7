@@ -42,6 +42,11 @@ const TweetsContainer = ({ userId, isProfile = false }) => {
           userPicturePath,
           likes,
           comments,
+          retweeted,
+          creatorId,
+          creatorFirstName,
+          creatorLastName,
+          creatorPicturePath
         }) => (
           <TweetWidget
             key={_id}
@@ -53,6 +58,10 @@ const TweetsContainer = ({ userId, isProfile = false }) => {
             userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}
+            retweeted={retweeted}
+            creatorId={creatorId}
+            creatorName={`${creatorFirstName} ${creatorLastName}`}
+            creatorPicturePath={creatorPicturePath}
           />
         )
       )}
