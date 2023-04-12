@@ -16,7 +16,11 @@ export const createTweet = async (req, res) => {
       picturePath,
       likes: {},
       comments: [],
-      retweeted: false
+      retweeted: false,
+      creatorId: "",
+      creatorFirstName: "",
+      creatorLastName: "",
+      creatorPicturePath: "" 
     });
     await newPost.save();
 
@@ -128,7 +132,6 @@ export const addComment = async (req, res) => {
 
     res.status(200).json(updatedPost);
   } catch (err) {
-    console.log( err.message );
     res.status(404).json({ message: err.message });
   }
 
