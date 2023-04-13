@@ -15,6 +15,7 @@ export const createTweet = async (req, res) => {
       userPicturePath: user.picturePath,
       picturePath,
       likes: {},
+      dislikes: {},
       comments: [],
       retweeted: false,
       creatorId: "",
@@ -48,7 +49,8 @@ export const retweet = async (req, res) => {
       description: tweet.description,
       userPicturePath: user.picturePath,
       picturePath: tweet.picturePath,
-      likes: [],
+      likes: {},
+      dislikes: {},
       comments: [],
       retweeted: true,
       creatorId: (tweet.retweeted) ? tweet.creatorId: creator._id,
@@ -95,16 +97,51 @@ export const likePost = async (req, res) => {
     const { userId } = req.body;
     const post = await Post.findById(id);
     const isLiked = post.likes.get(userId);
+    const isDisliked = post.dislikes.get(userId);
 
     if (isLiked) {
       post.likes.delete(userId);
     } else {
+      if (isDisliked) {
+        post.dislikes.delete(userId);
+      }
       post.likes.set(userId, true);
     }
 
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
+      { dislikes: post.dislikes },
+      { new: true }
+    );
+
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+export const dislikePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req.body;
+    const post = await Post.findById(id);
+    const isDisliked = post.dislikes.get(userId);
+    const isLiked = post.likes.get(userId);
+
+    if (isDisliked) {
+      post.dislikes.delete(userId);
+    } else {
+      if (isLiked){
+        post.isLiked.delete(userId);
+      }
+      post.dislikes.set(userId, true);
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      { likes: post.likes },
+      { dislikes: post.dislikes },
       { new: true }
     );
 

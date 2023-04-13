@@ -41,6 +41,7 @@ const TweetsContainer = ({ userId, isProfile = false }) => {
           picturePath,
           userPicturePath,
           likes,
+          dislikes,
           comments,
           retweeted,
           creatorId,
@@ -57,6 +58,7 @@ const TweetsContainer = ({ userId, isProfile = false }) => {
             picturePath={picturePath}
             userPicturePath={userPicturePath}
             likes={likes}
+            dislikes={dislikes}
             comments={comments}
             retweeted={retweeted}
             creatorId={creatorId}

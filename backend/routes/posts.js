@@ -1,5 +1,5 @@
 import express from "express";
-import {retweet, getFeedPosts, getUserPosts, likePost , addComment} from "../controllers/posts.js";
+import {retweet, getFeedPosts, getUserPosts, likePost, dislikePost, addComment} from "../controllers/posts.js";
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.get("/:userId/posts", getUserPosts);
 /* UPDATE */
 router.post("/:id/retweet", retweet);
 router.patch("/:id/like", likePost);
+router.patch("/:id/dislike", dislikePost);
 router.post("/:id/comment", addComment);
 
 export default router;

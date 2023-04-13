@@ -22,6 +22,10 @@ const postSchema = mongoose.Schema(
       type: Map,
       of: Boolean,
     },
+    dislikes: {
+      type: Map,
+      of: Boolean,
+    },
     comments: {
       type: Array,
       default: [],
