@@ -110,13 +110,13 @@ export const likePost = async (req, res) => {
 
     const updatedPost = await Post.findByIdAndUpdate(
       id,
-      { likes: post.likes },
-      { dislikes: post.dislikes },
+      { likes: post.likes, dislikes:post.dislikes },
       { new: true }
     );
 
     res.status(200).json(updatedPost);
   } catch (err) {
+    console.log(err.message);
     res.status(404).json({ message: err.message });
   }
 };
@@ -133,20 +133,20 @@ export const dislikePost = async (req, res) => {
       post.dislikes.delete(userId);
     } else {
       if (isLiked){
-        post.isLiked.delete(userId);
+        post.likes.delete(userId);
       }
       post.dislikes.set(userId, true);
     }
 
     const updatedPost = await Post.findByIdAndUpdate(
       id,
-      { likes: post.likes },
-      { dislikes: post.dislikes },
+      { likes: post.likes, dislikes:post.dislikes },
       { new: true }
     );
 
     res.status(200).json(updatedPost);
   } catch (err) {
+    console.log(err.message);
     res.status(404).json({ message: err.message });
   }
 };

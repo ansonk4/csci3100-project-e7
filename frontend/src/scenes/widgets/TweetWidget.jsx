@@ -34,7 +34,7 @@ const TweetWidget = ({
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]);
   const isDisliked = Boolean(dislikes[loggedInUserId]);
-  const likeCount = Object.keys(likes).length;
+  const likeCount = Object.keys(likes).length - Object.keys(dislikes).length;
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
