@@ -19,6 +19,7 @@ const TweetWidget = ({
   name,
   description,
   picturePath,
+  isVideo,
   userPicturePath,
   likes,
   dislikes,
@@ -117,7 +118,7 @@ const TweetWidget = ({
       </Typography>
 
       {/* picture of tweet */}
-      {picturePath && (
+      {!isVideo && picturePath && (
         <img
           width="100%"
           height="auto"
@@ -126,6 +127,18 @@ const TweetWidget = ({
           src={`http://localhost:3001/assets/${picturePath}`}
         />
       )}
+
+      {isVideo && (
+          <video
+            width="100%"
+            height="auto"
+            alt="post"
+            style={{ borderRadius: "0.8rem", marginTop: "0.8rem" }}
+            controls
+          >
+            <source src={`http://localhost:3001/assets/${picturePath}`} type="video/mp4"/>
+          </video>
+      )} 
 
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">

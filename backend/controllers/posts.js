@@ -4,7 +4,7 @@ import User from "../models/User.js";
 /* CREATE */
 export const createTweet = async (req, res) => {
   try {
-    const { userId, description, picturePath } = req.body;
+    const { userId, description, picturePath, isVideo } = req.body;
     const user = await User.findById(userId);
     const newPost = new Post({
       userId,
@@ -14,6 +14,7 @@ export const createTweet = async (req, res) => {
       description,
       userPicturePath: user.picturePath,
       picturePath,
+      isVideo,
       likes: {},
       dislikes: {},
       comments: [],
@@ -49,6 +50,7 @@ export const retweet = async (req, res) => {
       description: tweet.description,
       userPicturePath: user.picturePath,
       picturePath: tweet.picturePath,
+      isVideo: tweet.isVideo,
       likes: {},
       dislikes: {},
       comments: [],

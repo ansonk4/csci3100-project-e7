@@ -2,6 +2,7 @@ import {
   EditOutlined,
   DeleteOutlined,
   ImageOutlined,
+  OndemandVideo
 } from "@mui/icons-material";
 import {
   Box,
@@ -21,6 +22,7 @@ import { useSelector } from "react-redux";
 
 const NewTweetWidget = ({ picturePath }) => {
   const [isImage, setIsImage] = useState(false);
+  const [isVideo, setIsVideo] = useState(false);
   const [image, setImage] = useState(null);
   const [tweet, setTweet] = useState("");
   const { palette } = useTheme();
@@ -32,6 +34,7 @@ const NewTweetWidget = ({ picturePath }) => {
     const formData = new FormData();
     formData.append("userId", _id);
     formData.append("description", tweet);
+    formData.append("isVideo", true);
     if (image) {
       formData.append("picture", image);
       formData.append("picturePath", image.name);
@@ -44,10 +47,8 @@ const NewTweetWidget = ({ picturePath }) => {
 
     await response.json();
 
-    // const posts = await response.json();
-    // dispatch(setPosts({ posts }));
-
     setImage(null);
+    setIsImage(false);
     setTweet("");
   };
 
@@ -115,16 +116,31 @@ const NewTweetWidget = ({ picturePath }) => {
       <Divider sx={{ margin: "1.25rem 0" }} />
 
       <FlexBetween>
-        <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
-          <ImageOutlined sx={{ color: mediumMain }} />
-          <Typography
-            color={mediumMain}
-            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
-          >
-            Image
-          </Typography>
-        </FlexBetween>
+        <FlexBetween gap="2rem">
+          {/* Upload image button */}
+          <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
+            <ImageOutlined sx={{ color: mediumMain }} />
+            <Typography
+              color={mediumMain}
+              sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+            >
+              Image
+            </Typography>
+          </FlexBetween>
 
+          {/* Upload video button */}
+          <FlexBetween gap="0.25rem" onClick={() => {setIsImage(!isImage); setIsVideo(!isVideo);}}>
+            <OndemandVideo sx={{ color: mediumMain }} />
+            <Typography
+              color={mediumMain}
+              sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+            >
+              Video 
+            </Typography>
+          </FlexBetween>
+
+        </FlexBetween>
+        
         <Button
           disabled={!tweet}
           onClick={handlePost}

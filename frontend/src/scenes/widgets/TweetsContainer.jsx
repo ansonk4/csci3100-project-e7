@@ -39,6 +39,7 @@ const TweetsContainer = ({ userId, isProfile = false }) => {
           lastName,
           description,
           picturePath,
+          isVideo,
           userPicturePath,
           likes,
           dislikes,
@@ -56,6 +57,7 @@ const TweetsContainer = ({ userId, isProfile = false }) => {
             name={`${firstName} ${lastName}`}
             description={description}
             picturePath={picturePath}
+            isVideo={isVideo}
             userPicturePath={userPicturePath}
             likes={likes}
             dislikes={dislikes}
