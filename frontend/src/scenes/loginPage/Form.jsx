@@ -4,10 +4,12 @@ import {
   Button,
   TextField,
   useMediaQuery,
+  Stack,
   Typography,
   useTheme,
+  IconButton,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { EditOutlined, AdminPanelSettings, Login } from "@mui/icons-material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +46,8 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
+  const [isAdminLogin, setAdminLogin] = useState(false);
+  const [adminInput, setAdminInput] = useState("");
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,7 +57,6 @@ const Form = () => {
 
   
   const register = async (values, onSubmitProps) => {
-    // this allows us to send form info with image
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
@@ -76,11 +79,15 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    const loggedInResponse = await fetch(
+      "http://localhost:3001/auth/login", 
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      }
+    );
+
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
     if (loggedIn) {
@@ -93,6 +100,24 @@ const Form = () => {
       navigate("/home");
     }
   };
+
+  const adminLogin = async () => {
+    const loggedInResponse = await fetch(
+      "http://localhost:3001/auth/admin", 
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify( {password:adminInput} ),
+      }
+    );
+    const loggedIn = await loggedInResponse.json();
+    if (loggedIn.success){
+      navigate("/AdminPage");
+    } else {
+      setAdminInput("");
+    } 
+  }
+  
 
   // calling the server on login or resgister
   const handleFormSubmit = async (values, onSubmitProps) => {
@@ -150,28 +175,6 @@ const Form = () => {
                   helperText={touched.lastName && errors.lastName}
                   sx={{ gridColumn: "span 2" }}
                 />
-                {/* <TextField
-                  label="Location"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.location}
-                  name="location"
-                  error={Boolean(touched.location) && Boolean(errors.location)}
-                  helperText={touched.location && errors.location}
-                  sx={{ gridColumn: "span 4" }}
-                />
-                <TextField
-                  label="Occupation"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.occupation}
-                  name="occupation"
-                  error={
-                    Boolean(touched.occupation) && Boolean(errors.occupation)
-                  }
-                  helperText={touched.occupation && errors.occupation}
-                  sx={{ gridColumn: "span 4" }}
-                /> */}
                 <Box
                   gridColumn="span 4"
                   border={`1px solid ${palette.neutral.medium}`}
@@ -198,7 +201,7 @@ const Form = () => {
                         ) : (
                           <FlexBetween>
                             <Typography>{values.picture.name}</Typography>
-                            <EditOutlinedIcon />
+                            <EditOutlined />
                           </FlexBetween>
                         )}
                       </Box>
@@ -247,25 +250,51 @@ const Form = () => {
               {isLogin ? "LOGIN" : "REGISTER"}
             </Button>
               
-          {/* Go to register page and return button */}
-            <Typography
-              onClick={() => {
-                setPageType(isLogin ? "register" : "login");
-                resetForm();
-              }}
-              sx={{
-                textDecoration: "underline",
-                color: palette.primary.main,
-                "&:hover": {
-                  cursor: "pointer",
-                  color: palette.primary.light,
-                },
-              }}
-            >
-              {isLogin
-                ? "Don't have an account? Sign Up here."
-                : "Already have an account? Login here."}
-            </Typography>
+            <Stack direction="row" justifyContent="space-between">
+              {/* Go to register page and return button */}
+              <Typography
+                onClick={() => {
+                  setPageType(isLogin ? "register" : "login");
+                  resetForm();
+                }}
+                sx={{
+                  textDecoration: "underline",
+                  color: palette.primary.main,
+                  "&:hover": {
+                    cursor: "pointer",
+                    color: palette.primary.light,
+                  },
+                }}
+              >
+                {isLogin
+                  ? "Don't have an account? Sign Up here."
+                  : "Already have an account? Login here."}
+              </Typography>
+
+              {/* admin login icon */}
+              <IconButton >
+                <AdminPanelSettings onClick={() => {setAdminLogin(!isAdminLogin)}}/>
+              </IconButton>
+            </Stack>
+                  
+            {/* admin password textholder and login button */}
+            {isAdminLogin && (
+              <>
+                <Stack direction="row" justifyContent="end">
+                  <TextField 
+                    label="Admin password"
+                    type="password"
+                    onBlur={handleBlur}
+                    onChange={(e)=>{setAdminInput(e.target.value)}}
+                    value={adminInput}
+                    sx={{ gridColumn: "span 4", width: "40%" }}
+                  />
+                  <IconButton>
+                    <Login sx={{color: palette.primary.main}} onClick={adminLogin}/>
+                  </IconButton>
+                </Stack>
+              </>
+            )}
           </Box>
         </form>
       )}

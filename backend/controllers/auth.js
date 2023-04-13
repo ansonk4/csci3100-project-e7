@@ -49,3 +49,14 @@ export const login = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const adminLogin = async (req, res) => {
+  try{
+    const {password} = req.body;
+    console.log(password);
+    const success = (password === "admin") ? true: false;
+    res.status(200).json({success});
+  } catch (err){
+    res.status(500).json({error: err.message});
+  }
+}
