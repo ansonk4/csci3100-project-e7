@@ -173,5 +173,23 @@ export const addComment = async (req, res) => {
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
+}
 
+// recommend the non-friend posts with top 3 number of likes
+export const recommendation = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    const posts = await Post.find( {userId: {$ne: id}} );
+    const ret = posts.filter((p) => !user.friends.includes(p.userId));
+    const recommendation = ret.sort((a,b) => {
+        const alikeCount = a.likes.length - a.dislikes.length;
+        const blikeCount = b.likes.length - b.dislikes.length;
+        return (blikeCount - alikeCount);
+    } ).slice(0,3);
+    res.status(200).json(recommendation);
+  } catch (err) {
+    console.log(err.message);
+    res.status(404).json({ message: err.message });
+  }
 }

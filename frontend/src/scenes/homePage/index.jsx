@@ -5,6 +5,7 @@ import UserWidget from "scenes/widgets/UserWidget";
 import NewTweetWidget from "scenes/widgets/NewTweetWidget";
 import TweetsContainer from "scenes/widgets/TweetsContainer";
 import FriendListWidget from "scenes/widgets/FriendListWidget";
+import TweetRecommendation from "scenes/widgets/TweetRecommendation";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -30,11 +31,15 @@ const HomePage = () => {
           <NewTweetWidget picturePath={picturePath} />
           <TweetsContainer userId={_id} />
         </Box>
+
         {isNonMobileScreens && (
           <Box flexBasis="26%">
             <FriendListWidget userId={_id} />
+            <Box mb="2rem"/>
+            <TweetRecommendation userId={_id}/> 
           </Box>
         )}
+
       </Box>
     </Box>
   );
