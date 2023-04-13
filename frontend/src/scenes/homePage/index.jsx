@@ -4,7 +4,6 @@ import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
 import NewTweetWidget from "scenes/widgets/NewTweetWidget";
 import TweetsContainer from "scenes/widgets/TweetsContainer";
-import AdvertWidget from "scenes/widgets/AdvertWidget";
 import FriendListWidget from "scenes/widgets/FriendListWidget";
 
 const HomePage = () => {
@@ -33,8 +32,6 @@ const HomePage = () => {
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">
-            <AdvertWidget />
-            <Box m="2rem 0" />
             <FriendListWidget userId={_id} />
           </Box>
         )}

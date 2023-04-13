@@ -83,7 +83,7 @@ const TweetWidget = ({
   };
 
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper mb="2rem" mx="0">
 
       {/* User info for normal tweet */}
       { !retweeted && (< Friend

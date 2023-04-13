@@ -52,7 +52,7 @@ const NewTweetWidget = ({ picturePath }) => {
   };
 
   return (
-    <WidgetWrapper>
+    <WidgetWrapper mb="2rem" >
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} />
         <InputBase

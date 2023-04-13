@@ -44,13 +44,12 @@ const ProfilePage = () => {
           <Box m="2rem 0" />
           <FriendListWidget userId={userId} />
         </Box>
+
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          <MyPostWidget picturePath={user.picturePath} />
-          <Box m="2rem 0" />
-          <TweetsContainer userId={userId} isProfile />
+        <TweetsContainer userId={userId} isProfile />
         </Box>
       </Box>
     </Box>
