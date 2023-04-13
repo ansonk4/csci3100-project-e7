@@ -32,7 +32,7 @@ const Friend = ({ friendId, name, picturePath }) => {
   };
 
   return (
-    <FlexBetween>
+    <FlexBetween mb="0.5rem" >
       <FlexBetween gap="1rem">
         <UserImage image={picturePath} size="55px" />
         <Box
