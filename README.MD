@@ -11,15 +11,15 @@ v18.12.1
 8.19.2
 ```
 
-1. First clone this repo
+1. Clone this repo
 ```
 git clone https://github.com/ansonk4/csci3100-project-e7
 ```
-2. And go to the folder
+2. Go to the folder
 ```
 cd csci3100-project-e7
 ```
-3. open two termial, one for the server and one for the client
+3. Open two termial, one for the server and one for the client
 
 <br />
 
