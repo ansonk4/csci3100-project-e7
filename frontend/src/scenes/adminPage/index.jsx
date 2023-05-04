@@ -1,4 +1,4 @@
-import { Box, TextField, Typography, useTheme, Stack, Autocomplete } from "@mui/material";
+import { Box, TextField, Typography, useTheme, Autocomplete } from "@mui/material";
 import { useState, useEffect } from "react";
 import UserInfo from "./UserInfo.jsx";
 

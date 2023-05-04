@@ -54,7 +54,7 @@ const Navbar = () => {
             },
           }}
         >
-          Sociopedia
+          Twitter 
         </Typography>
 
         {/* search bar */}

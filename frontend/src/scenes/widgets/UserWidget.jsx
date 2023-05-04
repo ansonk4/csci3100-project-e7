@@ -78,7 +78,7 @@ const UserWidget = ({ userId, picturePath }) => {
             <img src="../assets/twitter.png" alt="twitter" />
             <Box>
               <Typography color={main} fontWeight="500">
-                Twitter
+               Twitter
               </Typography>
               <Typography color={medium}>Social Network</Typography>
             </Box>
