@@ -2,39 +2,64 @@
 
 ## Instuction
 
-First clone this repo
+You should have nodejs and npm installed, you can install them from https://nodejs.org/en. Any latest version should work fine.
+```
+# My envirnoment
+- node -v
+v18.12.1
+- npm -v
+8.19.2
+```
+
+1. First clone this repo
 ```
 git clone https://github.com/ansonk4/csci3100-project-e7
 ```
+2. And go to the folder
+```
+cd csci3100-project-e7
+```
+3. open two termial, one for the server and one for the client
+
+<br />
 
 ## Server side
 1. go to the backend folder
   ```
-  cd csci3100-project-e7/backend
+  cd backend
   ```
 
-2. build npm dependy
+2. build npm dependency 
   ```
   npm install
+  # ignore all the warning
   # if you receieve error, try the following cmd
   npm install -force
   ```
 
-3. start server
+3. install nodemon
   ```
-  nodemon index.js
+  npm i -g nodemon
+  ```
+
+4. start server
+  ```
+  npx nodemon index.js
   ```
 if successful, you should see ``` Server Port: 3001```
+
+<br />
 
 ## Client side
 1. go to the frontend folder
   ```
-  cd csci3100-project-e7/backend
+  cd frontend
   ```
 
-2. build npm 
+2. install npm dependency 
   ```
   npm install
+  # ignore all the warning
   # if you receieve error, try the following cmd
   npm install -force
   ```
